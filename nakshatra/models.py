@@ -1,5 +1,4 @@
 from django.db import models
-from bsddb.test.test_all import verbose
 
 # Create your models here.
 
@@ -18,24 +17,35 @@ CATEGORY_LEVEL = (
     ('SS', 'Super Senior'),
     ('J', 'Junior'),
 )
+
+
 class MajorCategory(models.Model):
     name = models.CharField(max_length=50, verbose_name="Major Category Name")
-    
+
     class Meta:
-        verbose_name = "MajorCategory"
-        verbose_name_plural = "MajorCategories"
+        verbose_name = "Major Category"
+        verbose_name_plural = "Major Categories"
+
+    def __unicode__(self):
+        return unicode(self.name)
 
 
 class MinorCategory(models.Model):
     name = models.CharField(max_length=50, verbose_name="Minor Category Name")
-    
+
     class Meta:
-        verbose_name = "MinorCategory"
-        verbose_name_plural = "MinorCategories"
+        verbose_name = "Minor Category"
+        verbose_name_plural = "Minor Categories"
+
+    def __unicode__(self):
+        return unicode(self.name)
 
 
 class Location(models.Model):
     name = models.CharField(max_length=150, verbose_name="Location Name")
+
+    def __unicode__(self):
+        return unicode(self.name)
 
 
 class City(models.Model):
@@ -44,10 +54,14 @@ class City(models.Model):
         Location,
         verbose_name="Location Name"
     )
-    
+
     class Meta:
         verbose_name = "City"
         verbose_name_plural = "Cities"
+
+    def __unicode__(self):
+        return unicode(self.name)
+
 
 class Organization(models.Model):
     name = models.CharField(max_length=75, verbose_name="Organization Name")
@@ -55,7 +69,11 @@ class Organization(models.Model):
         Location,
         verbose_name="Location Name"
     )
-    
+
+    def __unicode__(self):
+        return unicode(self.name)
+
+
 class Participant(models.Model):
     name = models.CharField(max_length=75, verbose_name="Participant Name")
     dob = models.DateField(verbose_name="Date Of Birth")
@@ -66,14 +84,21 @@ class Participant(models.Model):
         default='M',
         verbose_name='Gender'
     )
-    interest = models.TextField(max_length=150, verbose_name="Participant Interest")
+    interest = models.TextField(
+        max_length=150,
+        verbose_name="Participant Interest"
+    )
     category = models.CharField(
         max_length=2,
         choices=CATEGORY_LEVEL,
         default='J',
         verbose_name='Category Level'
     )
-        
+    image = models.ImageField(upload_to='images/', verbose_name="Image")
+
+    def __unicode__(self):
+        return unicode(self.name)
+
 
 class Event(models.Model):
     eventName = models.CharField(max_length=50, verbose_name="Event Name")
@@ -105,7 +130,11 @@ class Event(models.Model):
     )
     minP = models.IntegerField(default=None, verbose_name="Minimum Participant")
     maxP = models.IntegerField(default=None, verbose_name="Maximum Participant")
-    
+
+    def __unicode__(self):
+        return unicode(self.eventName)
+
+
 class EventEnrollment(models.Model):
     event = models.ForeignKey(
         Event,
@@ -115,4 +144,3 @@ class EventEnrollment(models.Model):
         Participant,
         verbose_name="Minor Category"
     )
-

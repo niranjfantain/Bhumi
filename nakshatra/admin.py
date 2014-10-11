@@ -1,13 +1,57 @@
 from django.contrib import admin
-from nakshatra.models import Event, MajorCategory, MinorCategory, Organization, Participant,EventEnrollment, City
+from nakshatra.models import Event, MajorCategory, MinorCategory, \
+    Organization, Participant, EventEnrollment, \
+    City, Location
 
 # Register your models here.
 
-admin.site.register(Event)
-admin.site.register(MajorCategory)
-admin.site.register(MinorCategory)
-admin.site.register(Organization)
-admin.site.register(Participant)
-admin.site.register(EventEnrollment)
-admin.site.register(City)
 
+class ParticipantAdmin(admin.ModelAdmin):
+    list_display = (
+        'image',
+        'name',
+        'age',
+        'gender',
+    )
+
+    def image_img(self):
+        return u'<img src="%s" />' % self.image
+    image_img.short_description = 'Thumb'
+    image_img.allow_tags = True
+
+
+class EventAdmin(admin.ModelAdmin):
+    list_display = (
+        'eventName',
+        'city',
+    )
+
+
+class CityAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'location',
+    )
+
+
+class OrganizationAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        'location',
+    )
+
+
+class EventEnrollmentAdmin(admin.ModelAdmin):
+    list_display = (
+        'event',
+        'participants'
+    )
+
+admin.site.register(Event, EventAdmin)
+admin.site.register(MajorCategory)
+admin.site.register(Location)
+admin.site.register(MinorCategory)
+admin.site.register(Organization, OrganizationAdmin)
+admin.site.register(Participant, ParticipantAdmin)
+admin.site.register(EventEnrollment, EventEnrollmentAdmin)
+admin.site.register(City, CityAdmin)
