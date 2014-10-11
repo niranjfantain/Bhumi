@@ -33,11 +33,13 @@ class Event(models.Model):
         verbose_name="Minor Category"
     )
     eventType = models.CharField(
+        max_length=2,
         choices=EVENT_TYPE,
         default='I',
         verbose_name='Event Type'
     )
     gender = models.CharField(
+        max_length=2,
         choices=GENDER,
         default='M',
         verbose_name='Gender'
