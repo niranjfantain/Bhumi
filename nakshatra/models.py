@@ -21,6 +21,18 @@ class MinorCategory(models.Model):
     name = models.CharField(max_length=50, verbose_name="Minor Category Name")
 
 
+class Location(models.Model):
+    name = models.CharField(max_length=150, verbose_name="Location Name")
+
+
+class City(models.Model):
+    name = models.CharField(max_length=75, verbose_name="City Name")
+    location = models.ForeignKey(
+        Location,
+        verbose_name="Location Name"
+    )
+
+
 class Event(models.Model):
     eventName = models.CharField(max_length=50, verbose_name="Event Name")
     desc = models.TextField(max_length=150, verbose_name="Description")
@@ -44,3 +56,10 @@ class Event(models.Model):
         default='M',
         verbose_name='Gender'
     )
+    city = models.ForeignKey(
+        City,
+        default=None,
+        verbose_name="City Name"
+    )
+    minP = models.IntegerField(default=None, verbose_name="Minimum Participant")
+    maxP = models.IntegerField(default=None, verbose_name="Maximum Participant")

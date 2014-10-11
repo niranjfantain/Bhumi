@@ -1,5 +1,5 @@
 from django.contrib import admin
-from nakshatrams.models import Event, MajorCategory, MinorCategory
+from nakshatra.models import Event, MajorCategory, MinorCategory
 
 # Register your models here.
 
