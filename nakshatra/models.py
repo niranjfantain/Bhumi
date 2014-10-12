@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
@@ -30,15 +31,22 @@ class MajorCategory(models.Model):
         return unicode(self.name)
 
 
-class MinorCategory(models.Model):
-    name = models.CharField(max_length=50, verbose_name="Minor Category Name")
+class Category(models.Model):
+    majorCategoryName = models.ForeignKey(
+        MajorCategory,
+        verbose_name="Major Category Name"
+    )
+    minorCategoryName = models.CharField(
+        max_length=50,
+        verbose_name="Minor Category Name"
+    )
 
     class Meta:
-        verbose_name = "Minor Category"
-        verbose_name_plural = "Minor Categories"
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
 
     def __unicode__(self):
-        return unicode(self.name)
+        return unicode(self.minorCategoryName)
 
 
 class Location(models.Model):
@@ -108,7 +116,7 @@ class Event(models.Model):
         verbose_name="Major Category"
     )
     minorCategory = models.ForeignKey(
-        MinorCategory,
+        Category,
         verbose_name="Minor Category"
     )
     eventType = models.CharField(
@@ -128,8 +136,20 @@ class Event(models.Model):
         default=None,
         verbose_name="City Name"
     )
-    minP = models.IntegerField(default=None, verbose_name="Minimum Participant")
-    maxP = models.IntegerField(default=None, verbose_name="Maximum Participant")
+    minP = models.IntegerField(
+        default=None,
+        validators=[
+            MinValueValidator(1)
+        ],
+        verbose_name="Minimum Participant"
+    )
+    maxP = models.IntegerField(
+        validators=[
+            MaxValueValidator(2)
+        ],
+        default=None,
+        verbose_name="Maximum Participant"
+    )
 
     def __unicode__(self):
         return unicode(self.eventName)

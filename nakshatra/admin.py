@@ -1,5 +1,5 @@
 from django.contrib import admin
-from nakshatra.models import Event, MajorCategory, MinorCategory, \
+from nakshatra.models import Event, MajorCategory, Category, \
     Organization, Participant, EventEnrollment, \
     City, Location
 
@@ -50,7 +50,7 @@ class EventEnrollmentAdmin(admin.ModelAdmin):
 admin.site.register(Event, EventAdmin)
 admin.site.register(MajorCategory)
 admin.site.register(Location)
-admin.site.register(MinorCategory)
+admin.site.register(Category)
 admin.site.register(Organization, OrganizationAdmin)
 admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(EventEnrollment, EventEnrollmentAdmin)
