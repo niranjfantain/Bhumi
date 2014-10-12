@@ -9,3 +9,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^report_builder/', include('report_builder.urls')),
 )
+
+admin.site.site_header = 'Nakshatra'
