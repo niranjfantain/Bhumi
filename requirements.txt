@@ -1,6 +1,12 @@
 Django==1.7
-Pillow==2.6.0
+Pillow==2.6.1
 argparse==1.2.1
-django-admin-bootstrapped==2.0.5
+django-admin-bootstrapped==2.1.0
+django-bootstrap3==4.11.0
+django-smart-selects==1.0.9.3
+tablib==0.10.0
 wsgiref==0.1.2
-django-report-builder==2.0.1
+
+*To install django-smart-selects do,
+
+pip install git+https://github.com/digi604/django-smart-selects.git
